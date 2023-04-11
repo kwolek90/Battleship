@@ -1,7 +1,17 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Battleships</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="header"></div>
+@for (int j = 0; j < 10; j++){
+		<div class="header">@(j+1)</div>
+}
+@for (int i = 0; i < 10; i++)
+{
+	<div class="row"> <div class="header">@(i+1)</div>
+	@for (int j = 0; j < 10; j++)
+	{
+		<div class="cell"></div>
+	}
+	</div>
+}

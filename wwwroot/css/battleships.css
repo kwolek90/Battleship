@@ -1,0 +1,19 @@
+﻿
+.header {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.cell {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.cell.active {
+    border: 3px solid blue;
+}
+
