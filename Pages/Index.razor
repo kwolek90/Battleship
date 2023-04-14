@@ -2,16 +2,110 @@
 
 <h1>Battleships</h1>
 
+@code{
+	enum FieldState{
+		Unknown,
+		Empty,
+		Ship,
+		Hit,
+		Destroyed
+	}
+	FieldState[,] playerBoard = new FieldState[10, 10];
+	FieldState[,] enemyBoard = new FieldState[10, 10];
+	FieldState[,] enemyVisibleBoard = new FieldState[10, 10];
+
+	enum Ship{
+		Destroyer = 4,
+		Battleship = 5
+	}
+
+	Dictionary<Ship, int> AvailableShips = new Dictionary<Ship, int>(){
+		{Ship.Destroyer, 2},
+		{Ship.Battleship, 1}
+	};
+
+	protected override void OnInitialized(){
+		for(int i=0;i<10;i++){
+			for(int j=0;j<10;j++){
+				enemyBoard[i, j] = FieldState.Empty;
+			}
+		}
+
+		foreach (var item in AvailableShips)
+		{
+			for(int i=0; i< item.Value; i++){
+				int k = System.Random.Shared.Next() % 10;
+				int l = System.Random.Shared.Next() % 10;
+				int dir = System.Random.Shared.Next() % 2;
+
+
+				for(int j=0; j< (int)item.Key; j++){
+					if(dir == 0)
+						enemyBoard[k, j] = FieldState.Ship;
+					else{
+						enemyBoard[j, l] = FieldState.Ship;
+					}
+				}
+			}
+		}
+	}
+
+	void Shoot(int i, int j){
+		if(enemyVisibleBoard[i,j]==FieldState.Unknown){
+			if(enemyBoard[i,j]==FieldState.Empty){
+				enemyVisibleBoard[i, j] = FieldState.Empty;
+			}
+			if(enemyBoard[i,j]==FieldState.Ship){
+				enemyBoard[i, j] = FieldState.Hit;
+				enemyVisibleBoard[i, j] = FieldState.Hit;
+			}
+		}
+	}
+
+	string GetCellClass(FieldState fieldState){
+		return fieldState switch
+		{
+			FieldState.Ship => "ship",
+			FieldState.Hit => "hit",
+			FieldState.Unknown => "unknown",
+			FieldState.Empty => "empty",
+			_ => ""
+		};
+	}
+
+
+}
+
+
 <div class="header"></div>
 @for (int j = 0; j < 10; j++){
 		<div class="header">@(j+1)</div>
 }
 @for (int i = 0; i < 10; i++)
 {
+	int localI = i;
 	<div class="row"> <div class="header">@(i+1)</div>
 	@for (int j = 0; j < 10; j++)
 	{
-		<div class="cell"></div>
+		int localJ = j;
+		<div @onclick="() => Shoot(localI,localJ)" class="cell @(GetCellClass(enemyVisibleBoard[i,j]))"></div>
 	}
+	</div>
+}
+
+
+<div class="header"></div>
+@for (int j = 0; j < 10; j++)
+{
+	<div class="header">@(j + 1)</div>
+}
+@for (int i = 0; i < 10; i++)
+{
+	<div class="row">
+		<div class="header">@(i + 1)</div>
+		@for (int j = 0; j < 10; j++)
+		{
+			<div class="cell @(GetCellClass(enemyBoard[i,j]))"></div>
+		}
 	</div>
 }

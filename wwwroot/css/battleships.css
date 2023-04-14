@@ -13,6 +13,38 @@
     border: 1px solid black;
 }
 
+.ship {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border: 1px solid black;
+    background: gray;
+}
+
+.hit {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border: 1px solid black;
+    background: red;
+}
+
+.empty {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border: 1px solid black;
+    background: blue;
+}
+
+.unknown {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    border: 1px solid black;
+    background: gray;
+}
+
 .cell.active {
     border: 3px solid blue;
 }
