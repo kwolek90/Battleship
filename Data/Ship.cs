@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battleship.Data
+﻿namespace Battleship.Data
 {
-    internal enum Ship
+    public enum Ship
     {
         Destroyer = 4,
         Battleship = 5
